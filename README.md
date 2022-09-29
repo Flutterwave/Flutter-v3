@@ -84,18 +84,18 @@ It returns an instance of Flutterwave which we then call the async method `.char
 		    );  
 		    
     final Flutterwave flutterwave = Flutterwave(
-		    context: context, 
-		    style: style, 
-		    publicKey: "Public Key, 
-		    currency: "RWF", 
-		    redirectUrl: "my_redirect_url" 
-		    txRef: "unique_transaction_reference", 
-		    amount: "3000", 
-		    customer: customer, 
-		    paymentOptions: "ussd, card, barter, payattitude", 
-		    customization: Customization(title: "Test Payment"),
-		    isDebug: true
-		    ); 
+	    context: context, 
+	    style: style, 
+	    publicKey: "Public Key", 
+	    currency: "RWF", 
+	    redirectUrl: "my_redirect_url" ,
+	    txRef: "unique_transaction_reference", 
+	    amount: "3000", 
+	    customer: customer, 
+	    paymentOptions: "ussd, card, barter, payattitude", 
+	    customization: Customization(title: "Test Payment"),
+	    isTestMode: true
+	    ); 
 		} 
 
 ### Handling the response
