@@ -1,5 +1,4 @@
 class Utils {
-  static const DEFAULT_URL = "https://www.google.com";
   static const _PROD_BASE_URL = "https://api.ravepay.co/v3/sdkcheckout/";
   static const String STANDARD_PAYMENT = "payments";
   static const _DEBUG_BASE_URL =

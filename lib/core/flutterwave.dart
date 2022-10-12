@@ -20,7 +20,7 @@ class Flutterwave {
   String paymentOptions;
   String? currency;
   String? paymentPlanId;
-  String? redirectUrl;
+  String redirectUrl;
   List<SubAccount>? subAccounts;
   Map<dynamic, dynamic>? meta;
   FlutterwaveStyle? style;
@@ -36,7 +36,7 @@ class Flutterwave {
       required this.isTestMode,
       this.currency,
       this.paymentPlanId,
-      this.redirectUrl,
+      required this.redirectUrl,
       this.subAccounts,
       this.meta,
       this.style});
@@ -54,7 +54,7 @@ class Flutterwave {
         publicKey: publicKey,
         currency: currency,
         paymentPlanId: paymentPlanId,
-        redirectUrl: redirectUrl ?? Utils.DEFAULT_URL,
+        redirectUrl: redirectUrl,
         subAccounts: subAccounts,
         meta: meta);
 
@@ -64,6 +64,7 @@ class Flutterwave {
         builder: (context) => PaymentWidget(
           request: request,
           style: style ?? FlutterwaveStyle(),
+          mainContext: context,
         ),
       ),
     );

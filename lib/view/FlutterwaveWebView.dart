@@ -1,16 +1,13 @@
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutterwave_standard/core/TransactionCallBack.dart';
-import 'package:flutterwave_standard/utils.dart';
 
 class FlutterwaveInAppBrowser extends InAppBrowser {
-  String redirectUrl;
   final TransactionCallBack callBack;
 
   var hasCompletedProcessing = false;
   var haveCallBacksBeenCalled = false;
 
-  FlutterwaveInAppBrowser(
-      {this.redirectUrl = Utils.DEFAULT_URL, required this.callBack});
+  FlutterwaveInAppBrowser({required this.callBack});
 
   @override
   Future onBrowserCreated() async {}

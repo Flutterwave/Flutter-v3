@@ -18,7 +18,7 @@ class SubAccount {
       "id": this.id,
       "transaction_split_ratio": this.transactionSplitRatio,
       "transaction_charge_type": this.transactionChargeType,
-      "transaction_charge": this.transactionChargeType
+      "transaction_charge": this.transactionPercentage
     };
   }
 }

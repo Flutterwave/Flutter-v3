@@ -222,14 +222,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ? this.getPublicKey()
             : this.publicKeyController.text.trim(),
         currency: this.selectedCurrency,
+        redirectUrl: "https://google.com",
         txRef: Uuid().v1(),
         amount: this.amountController.text.toString().trim(),
         customer: customer,
-        subAccounts: subAccounts,
-        paymentOptions: "card, payattitude",
+        // subAccounts: subAccounts,
+        paymentOptions: "card, payattitude, barter",
         customization: Customization(title: "Test Payment"),
-        redirectUrl: "https://www.google.com",
-        isTestMode: isTestMode);
+        isTestMode: false);
     final ChargeResponse response = await flutterwave.charge();
     if (response != null) {
       this.showLoading(response.status);
@@ -240,8 +240,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   String getPublicKey() {
-    if (isTestMode) return "FLWPUBK_TEST--X";
-    return "FLWPUBK-X";
+    if (isTestMode) return "FLWPUBK_TEST-895362a74986153380262d89bfdc9b8a-X";
+      // "FLWPUBK_TEST-02b9b5fc6406bd4a41c3ff141cc45e93-X";
+    return "FLWPUBK-aa4cd0b443404147d2d8229a37694b00-X";
   }
 
   void _openBottomSheet() {
@@ -253,7 +254,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _getCurrency() {
-    final currencies = ["NGN", "RWF", "UGX", "ZAR", "USD", "GHS"];
+    final currencies = ["NGN", "RWF", "UGX", "KES", "ZAR", "USD", "GHS", "TZS"];
     return Container(
       height: 250,
       margin: EdgeInsets.fromLTRB(0, 10, 0, 0),

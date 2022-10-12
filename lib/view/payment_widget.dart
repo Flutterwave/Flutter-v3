@@ -11,11 +11,12 @@ import 'flutterwave_style.dart';
 class PaymentWidget extends StatefulWidget {
   final FlutterwaveStyle style;
   final StandardRequest request;
+  final BuildContext mainContext;
 
   BuildContext? loadingDialogContext;
   SnackBar? snackBar;
 
-  PaymentWidget({required this.request, required this.style});
+  PaymentWidget({required this.request, required this.style, required this.mainContext});
 
   @override
   State<StatefulWidget> createState() => _PaymentState();
@@ -77,7 +78,7 @@ class _PaymentState extends State<PaymentWidget>
 
   void _handlePayment() async {
     try {
-      Navigator.of(context).pop(); // to remove confirmation dialog
+      Navigator.of(widget.mainContext).pop(); // to remove confirmation dialog
       _toggleButtonActive(false);
       controller.startTransaction(widget.request);
       _toggleButtonActive(true);
@@ -94,13 +95,13 @@ class _PaymentState extends State<PaymentWidget>
   }
 
   void _showErrorAndClose(final String errorMessage) {
-    FlutterwaveViewUtils.showToast(context, errorMessage);
-    Navigator.pop(context); // return response to user
+    FlutterwaveViewUtils.showToast(widget.mainContext, errorMessage);
+    Navigator.pop(widget.mainContext); // return response to user
   }
 
   void _showConfirmDialog() {
     FlutterwaveViewUtils.showConfirmPaymentModal(
-        context,
+        widget.mainContext,
         widget.request.currency,
         widget.request.amount,
         widget.style.getMainTextStyle(),
@@ -117,14 +118,14 @@ class _PaymentState extends State<PaymentWidget>
 
   @override
   onCancelled() {
-    FlutterwaveViewUtils.showToast(context, "Transaction Cancelled");
-    Navigator.pop(context);
+    FlutterwaveViewUtils.showToast(widget.mainContext, "Transaction Cancelled");
+    Navigator.pop(widget.mainContext);
   }
 
   @override
   onTransactionSuccess(String id, String txRef) {
     final ChargeResponse chargeResponse = ChargeResponse(
         status: "success", success: true, transactionId: id, txRef: txRef);
-    Navigator.pop(this.context, chargeResponse);
+    Navigator.pop(this.widget.mainContext, chargeResponse);
   }
 }

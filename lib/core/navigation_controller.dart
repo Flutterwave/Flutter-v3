@@ -26,6 +26,7 @@ class NavigationController {
       openBrowser(
           standardResponse.data?.link ?? "", request.redirectUrl);
     } catch (error) {
+      print("error is $error");
       throw (error);
     }
   }
