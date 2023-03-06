@@ -62,8 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   keyboardType: TextInputType.number,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(hintText: "Amount"),
-                  validator: (value) =>
-                      value.isNotEmpty ? null : "Amount is required",
+                  validator: (value) => value.isNotEmpty ? null : "Amount is required",
                 ),
               ),
               Container(
@@ -77,8 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   decoration: InputDecoration(
                     hintText: "Currency",
                   ),
-                  validator: (value) =>
-                      value.isNotEmpty ? null : "Currency is required",
+                  validator: (value) => value.isNotEmpty ? null : "Currency is required",
                 ),
               ),
               Container(
@@ -177,9 +175,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final Flutterwave flutterwave = Flutterwave(
         context: context,
-        publicKey: this.publicKeyController.text.trim().isEmpty
-            ? this.getPublicKey()
-            : this.publicKeyController.text.trim(),
+        publicKey:
+            this.publicKeyController.text.trim().isEmpty ? this.getPublicKey() : this.publicKeyController.text.trim(),
         currency: this.selectedCurrency,
         redirectUrl: 'https://facebook.com',
         txRef: Uuid().v1(),
@@ -187,7 +184,14 @@ class _MyHomePageState extends State<MyHomePage> {
         customer: customer,
         paymentOptions: "card, payattitude, barter, bank transfer, ussd",
         customization: Customization(title: "Test Payment"),
-        isTestMode: this.isTestMode);
+        isTestMode: this.isTestMode,
+        //add an app bar to webView to enable back button
+        //this is used to solve the cancel button issue on iOS
+        appBar: AppBar(
+          title: Text("Flutterwave Standard"),
+          centerTitle: true,
+          backgroundColor: Colors.orange,
+        ));
     final ChargeResponse response = await flutterwave.charge();
     if (response != null) {
       this.showLoading(response.toString());
@@ -248,7 +252,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> showLoading(String message) {
     return showDialog(
       context: this.context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
           content: Container(

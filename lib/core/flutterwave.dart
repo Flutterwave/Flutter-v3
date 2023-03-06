@@ -25,6 +25,7 @@ class Flutterwave {
   List<SubAccount>? subAccounts;
   Map<dynamic, dynamic>? meta;
   FlutterwaveStyle? style;
+  AppBar? appBar;
 
   Flutterwave(
       {required this.context,
@@ -36,6 +37,7 @@ class Flutterwave {
       required this.customization,
       required this.redirectUrl,
       required this.isTestMode,
+      this.appBar,
       this.currency,
       this.paymentPlanId,
       this.subAccounts,
@@ -64,23 +66,17 @@ class Flutterwave {
       standardResponse = await request.execute(Client());
       if ("error" == standardResponse.status) {
         FlutterwaveViewUtils.showToast(context, standardResponse.message!);
-        return ChargeResponse(
-            txRef: request.txRef, status: "error", success: false);
+        return ChargeResponse(txRef: request.txRef, status: "error", success: false);
       }
 
-      if (standardResponse.data?.link == null ||
-          standardResponse.data?.link?.isEmpty == true) {
+      if (standardResponse.data?.link == null || standardResponse.data?.link?.isEmpty == true) {
         FlutterwaveViewUtils.showToast(
-            context,
-            "Unable to process this transaction. " +
-                "Please check that you generated a new tx_ref");
-        return ChargeResponse(
-            txRef: request.txRef, status: "error", success: false);
+            context, "Unable to process this transaction. " + "Please check that you generated a new tx_ref");
+        return ChargeResponse(txRef: request.txRef, status: "error", success: false);
       }
     } catch (error) {
       FlutterwaveViewUtils.showToast(context, error.toString());
-      return ChargeResponse(
-          txRef: request.txRef, status: "error", success: false);
+      return ChargeResponse(txRef: request.txRef, status: "error", success: false);
     }
 
     final transactionResult = await Navigator.push(
@@ -88,19 +84,18 @@ class Flutterwave {
       MaterialPageRoute(
         builder: (context) => StandardWebView(
           url: standardResponse!.data!.link!,
+          appBar: appBar ?? AppBar(),
         ),
       ),
     );
 
     if (transactionResult == null) {
-      return ChargeResponse(
-          txRef: request.txRef, status: "cancelled", success: false);
+      return ChargeResponse(txRef: request.txRef, status: "cancelled", success: false);
     }
     if (transactionResult.runtimeType == ChargeResponse().runtimeType) {
       return transactionResult;
     }
 
-    return ChargeResponse(
-        txRef: request.txRef, status: "cancelled", success: false);
+    return ChargeResponse(txRef: request.txRef, status: "cancelled", success: false);
   }
 }
