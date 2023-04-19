@@ -198,7 +198,6 @@ class _MyHomePageState extends State<MyHomePage> {
         paymentOptionsList: [PaymentOption.card, PaymentOption.payattitude, PaymentOption.barter, PaymentOption.banktransfer, PaymentOption.ussd],
         customization: Customization(title: "Test Payment"),
         isTestMode: this.isTestMode);
-    print(flutterwave.paymentOptionsList);
     final ChargeResponse response = await flutterwave.charge();
     if (response != null) {
       this.showLoading(response.toString());
