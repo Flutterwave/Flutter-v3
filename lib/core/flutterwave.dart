@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutterwave_standard/models/requests/customer.dart';
-import 'package:flutterwave_standard/models/requests/customizations.dart';
-import 'package:flutterwave_standard/models/requests/standard_request.dart';
-import 'package:flutterwave_standard/models/responses/charge_response.dart';
-import 'package:flutterwave_standard/models/responses/standard_response.dart';
-import 'package:flutterwave_standard/models/subaccount.dart';
-import 'package:flutterwave_standard/utils.dart';
-import 'package:flutterwave_standard/view/flutterwave_style.dart';
-import 'package:flutterwave_standard/view/standard_widget.dart';
-import 'package:flutterwave_standard/view/view_utils.dart';
 import 'package:http/http.dart';
+
+import '../models/requests/customer.dart';
+import '../models/requests/customizations.dart';
+import '../models/requests/standard_request.dart';
+import '../models/responses/charge_response.dart';
+import '../models/responses/standard_response.dart';
+import '../models/subaccount.dart';
+import '../view/flutterwave_style.dart';
+import '../view/standard_widget.dart';
+import '../view/view_utils.dart';
 
 class Flutterwave {
   BuildContext context;
@@ -86,16 +86,16 @@ class Flutterwave {
     }
 
     final response = await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => StandardPaymentWidget(
-            webUrl: standardResponse!.data!.link!,
-          ),
+      context,
+      MaterialPageRoute(
+        builder: (context) => StandardPaymentWidget(
+          webUrl: standardResponse!.data!.link!,
         ),
-      );
+      ),
+    );
 
     if (response != null) return response!;
-    return ChargeResponse(txRef: request.txRef, status: "cancelled", success: false);
-    }
-
+    return ChargeResponse(
+        txRef: request.txRef, status: "cancelled", success: false);
+  }
 }

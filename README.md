@@ -103,7 +103,7 @@ You can also follow us [@FlutterwaveEng](https://twitter.com/FlutterwaveEng) and
 
 ## Contribution guidelines
 
-Read more about our community contribution guidelines [here](https://www.notion.so/flutterwavego/Community-contribution-guide-ca1d8a876ba04d45ab4b663c758ae42a).
+Read more about our community contribution guidelines [here](#contribution-guidelines).
 
 ## License
 
