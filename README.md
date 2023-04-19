@@ -1,20 +1,16 @@
-
-
 <p align="center">    
    <img title="Flutterwave" height="200" src="https://flutterwave.com/images/logo/full.svg" width="50%"/>  
-</p>    
+</p>
 
 # Flutterwave Flutter SDK (Standard)
 
 The Flutter library helps you create seamless payment experiences in your dart mobile app. By connecting to our modal, you can start collecting payment in no time.
-
 
 Available features include:
 
 - Collections: Card, Account, Mobile money, Bank Transfers, USSD, Barter.
 - Recurring payments: Tokenization and Subscriptions.
 - Split payments
-
 
 ## Table of Contents
 
@@ -25,18 +21,15 @@ Available features include:
 5. [Contribution guidelines](#contribution-guidelines)
 6. [License](#license)
 
-
 ## Requirements
 
 1. Flutterwave for business [API Keys](https://developer.flutterwave.com/docs/integration-guides/authentication)
 2. Supported Flutter version >= 1.17.0
 
-
 ## Installation
 
 1. Add the dependency to your project. In your `pubspec.yaml` file add: `flutterwave_standard: 1.0.7`
 2. Run `flutter pub get`
-
 
 ## Usage
 
@@ -58,33 +51,40 @@ To create an instance, you should call the Flutterwave constructor. This constru
 
 It returns an instance of Flutterwave which we then call the async method `.charge()` on.
 
-_
+\_
 
-    handlePaymentInitialization() async { 
+    handlePaymentInitialization() async {
     	 final Customer customer = Customer(
     	 name: "Flutterwave Developer",
-    	 phoneNumber: "1234566677777",   
-         email: "customer@customer.com"  
-     );            
+    	 phoneNumber: "1234566677777",
+         email: "customer@customer.com"
+     );
         final Flutterwave flutterwave = Flutterwave(
-	        context: context, publicKey: "Public Key-here",
-    		currency: "currency-here",   
-            redirectUrl: "add-your-redirect-url-here",  
-            txRef: "add-your-unique-reference-here",   
-            amount: "3000",   
-            customer: customer,   
-            paymentOptions: "ussd, card, barter, payattitude",   
+            context: context, 
+            publicKey: "YOUR-PUBLIC-KEY",
+    		currency: "currency-here",
+            redirectUrl: "add-your-redirect-url-here",
+            txRef: "add-your-unique-reference-here",
+            amount: "3000",
+             /// ADDING A SUB ACCOUNT LOOKS LIKE THIS
+        subAccounts: [
+          SubAccount(
+            id: "2333EDEd_",
+            transactionChargeType: TransactionChargeType.percentage,
+            transactionCharge: 0.5,
+          ),
+        ],
+        customer: customer,
+    paymentOptionsList: [PaymentOption.card, PaymentOption.payattitude, PaymentOption.barter, PaymentOption.banktransfer, PaymentOption.ussd],
             customization: Customization(title: "My Payment"),
-            isTestMode: true );
-     } 
+            isTestMode: true);
+     }
 
 ### Handling the response
 
 Calling the `.charge()` method returns a `Future` of `ChargeResponse` which we await for the actual response as seen above.
 
-
-
-    final ChargeResponse response = await flutterwave.charge(); 
+    final ChargeResponse response = await flutterwave.charge();
 
 Call the verify transaction [endpoint](https://developer.flutterwave.com/docs/verifications/transaction) with the `transactionID` returned in `response.transactionId` or the `txRef` you provided to verify transaction before offering value to customer
 
@@ -119,7 +119,8 @@ Copyright (c) Flutterwave Inc.
 - [fluttertoast](https://pub.dev/packages/fluttertoast)
 
 <a id="references"></a>
-## Flutterwave API  References
+
+## Flutterwave API References
 
 - [Flutterwave API Doc](https://developer.flutterwave.com/docs)
 - [Flutterwave Inline Payment Doc](https://developer.flutterwave.com/docs/flutterwave-inline)
