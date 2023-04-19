@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
+import 'package:flutterwave_standard/models/subaccount.dart';
+import 'package:flutterwave_standard/utils/enums/payment_option.dart';
+import 'package:flutterwave_standard/utils/enums/transaction_charge_type.dart';
 import 'package:uuid/uuid.dart';
 
 void main() {
@@ -182,10 +185,20 @@ class _MyHomePageState extends State<MyHomePage> {
         redirectUrl: 'https://facebook.com',
         txRef: Uuid().v1(),
         amount: this.amountController.text.toString().trim(),
+
+        /// ADDING A SUB ACCOUNT LOOKS LIKE THIS
+        subAccounts: [
+          SubAccount(
+            id: "2333EDEd_",
+            transactionChargeType: TransactionChargeType.percentage,
+            transactionCharge: 0.5,
+          ),
+        ],
         customer: customer,
-        paymentOptions: "card, payattitude, barter, bank transfer, ussd",
+        paymentOptionsList: [PaymentOption.card, PaymentOption.payattitude, PaymentOption.barter, PaymentOption.banktransfer, PaymentOption.ussd],
         customization: Customization(title: "Test Payment"),
         isTestMode: this.isTestMode);
+    print(flutterwave.paymentOptionsList);
     final ChargeResponse response = await flutterwave.charge();
     if (response != null) {
       this.showLoading(response.toString());
