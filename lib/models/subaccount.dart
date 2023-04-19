@@ -52,23 +52,23 @@ class SubAccount {
       case TransactionChargeType.percentage:
         return {
           "id": id,
-          "transaction_split_ratio": transactionSplitRatio,
+          "transaction_split_ratio": this.transactionSplitRatio,
           "transaction_charge_type": 'percentage',
-          "transaction_charge": transactionCharge ?? transactionPercentage,
+          "transaction_charge": this.transactionCharge ?? this.transactionPercentage,
         };
       case TransactionChargeType.flat:
         return {
           "id": id,
-          "transaction_split_ratio": transactionSplitRatio,
+          "transaction_split_ratio": this.transactionSplitRatio,
           "transaction_charge_type": 'flat',
-          "transaction_charge": transactionCharge ?? transactionPercentage,
+          "transaction_charge": this.transactionCharge ?? this.transactionPercentage,
         };
       case TransactionChargeType.flatSubaccount:
         return {
           "id": id,
-          "transaction_split_ratio": transactionSplitRatio,
+          "transaction_split_ratio": this.transactionSplitRatio,
           "transaction_charge_type": 'flat_subaccount',
-          "transaction_charge": transactionCharge ?? transactionPercentage,
+          "transaction_charge": this.transactionCharge ?? this.transactionPercentage,
         };
       default:
         return {
