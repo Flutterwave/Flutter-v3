@@ -29,11 +29,6 @@ class FlutterwaveViewUtils {
               "$amount. Do you wish to continue? ",
               textAlign: TextAlign.center,
               style: textStyle,
-              // style: TextStyle(
-              //   color: Colors.black,
-              //   fontSize: 18,
-              //   letterSpacing: 1.2,
-              // ),
             ),
           ),
           actions: [

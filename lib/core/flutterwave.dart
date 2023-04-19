@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutterwave_standard/models/requests/customer.dart';
-import 'package:flutterwave_standard/models/requests/customizations.dart';
-import 'package:flutterwave_standard/models/requests/standard_request.dart';
-import 'package:flutterwave_standard/models/responses/charge_response.dart';
-import 'package:flutterwave_standard/models/responses/standard_response.dart';
-import 'package:flutterwave_standard/models/subaccount.dart';
-import 'package:flutterwave_standard/utils.dart';
-import 'package:flutterwave_standard/view/flutterwave_style.dart';
-import 'package:flutterwave_standard/view/standard_widget.dart';
-import 'package:flutterwave_standard/view/view_utils.dart';
 import 'package:http/http.dart';
+
+import '../models/requests/customer.dart';
+import '../models/requests/customizations.dart';
+import '../models/requests/standard_request.dart';
+import '../models/responses/charge_response.dart';
+import '../models/responses/standard_response.dart';
+import '../models/subaccount.dart';
+import '../utils/enums/payment_option.dart';
+import '../view/flutterwave_style.dart';
+import '../view/standard_widget.dart';
+import '../view/view_utils.dart';
 
 class Flutterwave {
   BuildContext context;
@@ -19,7 +20,9 @@ class Flutterwave {
   Customer customer;
   bool isTestMode;
   String publicKey;
-  String paymentOptions;
+  @Deprecated('Use paymentOptionsList instead')
+  String? paymentOptions;
+  List<PaymentOption>? paymentOptionsList;
   String redirectUrl;
   String currency;
   String? paymentPlanId;
@@ -34,7 +37,7 @@ class Flutterwave {
       required this.txRef,
       required this.amount,
       required this.customer,
-      required this.paymentOptions,
+      this.paymentOptions,
       required this.customization,
       required this.redirectUrl,
       required this.isTestMode,
@@ -42,15 +45,28 @@ class Flutterwave {
       this.paymentPlanId,
       this.subAccounts,
       this.meta,
-      this.style});
+      this.style,
+      this.paymentOptionsList}) {
+    assert(paymentOptions != null || paymentOptionsList != null,
+        'Either paymentOptions or paymentOptionsList must be non-null.');
+    assert(paymentOptions == null || paymentOptionsList == null,
+        'paymentOptions and paymentOptionsList cannot both be non-null.');
+  }
 
   /// Starts a transaction by calling the Standard service
-  Future<ChargeResponse> charge() async {
+  Future<ChargeResponse?> charge() async {
+    var listPaymentOptions = paymentOptionsList;
+    String paymentOptionNames = '';
+    if (listPaymentOptions != null) {
+      paymentOptionNames = listPaymentOptions
+          .map((option) => option.toString().split('.').last)
+          .join(', ');
+    }
     final request = StandardRequest(
         txRef: txRef,
         amount: amount,
         customer: customer,
-        paymentOptions: paymentOptions,
+        paymentOptions: paymentOptions ?? paymentOptionNames,
         customization: customization,
         isTestMode: isTestMode,
         redirectUrl: redirectUrl,
@@ -86,16 +102,16 @@ class Flutterwave {
     }
 
     final response = await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => StandardPaymentWidget(
-            webUrl: standardResponse!.data!.link!,
-          ),
+      context,
+      MaterialPageRoute(
+        builder: (context) => StandardPaymentWidget(
+          webUrl: standardResponse!.data!.link!,
         ),
-      );
+      ),
+    );
 
     if (response != null) return response!;
-    return ChargeResponse(txRef: request.txRef, status: "cancelled", success: false);
-    }
-
+    return ChargeResponse(
+        txRef: request.txRef, status: "cancelled", success: false);
+  }
 }
