@@ -23,18 +23,19 @@ class StandardRequest {
   List<SubAccount>? subAccounts;
   Map<dynamic, dynamic>? meta;
 
-  StandardRequest({required this.txRef,
-    required this.amount,
-    required this.customer,
-    required this.paymentOptions,
-    required this.customization,
-    required this.isTestMode,
-    required this.publicKey,
-    required this.redirectUrl,
-    this.currency,
-    this.paymentPlanId,
-    this.subAccounts,
-    this.meta});
+  StandardRequest(
+      {required this.txRef,
+      required this.amount,
+      required this.customer,
+      required this.paymentOptions,
+      required this.customization,
+      required this.isTestMode,
+      required this.publicKey,
+      required this.redirectUrl,
+      this.currency,
+      this.paymentPlanId,
+      this.subAccounts,
+      this.meta});
 
   String toString() => jsonEncode(this._toJson());
 
@@ -53,6 +54,7 @@ class StandardRequest {
       "meta": this.meta,
       "customizations": customization.toJson()
     };
+    print(this.customer.toJson());
     return Utils.removeKeysWithEmptyValues(request);
   }
 
