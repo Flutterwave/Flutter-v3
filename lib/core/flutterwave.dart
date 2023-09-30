@@ -44,6 +44,29 @@ class Flutterwave {
       this.meta,
       this.style});
 
+  /// [url] paymentLink generated from backend server
+  static Future<ChargeResponse> fromPaymentLink({
+    required BuildContext context, 
+    required String link, 
+    required String txRef,
+  }) async {
+
+    final response = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StandardPaymentWidget(webUrl: link),
+        ),
+      );
+
+    if (response != null) return response!;
+
+    return ChargeResponse(
+      txRef: txRef,
+      status: "cancelled", 
+      success: false,
+    );
+  }
+
   /// Starts a transaction by calling the Standard service
   Future<ChargeResponse> charge() async {
     final request = StandardRequest(
