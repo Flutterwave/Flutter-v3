@@ -26,7 +26,7 @@ Available features include:
 1. Flutterwave for business [API Keys](https://developer.flutterwave.com/docs/integration-guides/authentication)
 2. Supported Flutter version >= 1.17.0
 3. Dart SDK >= 2.17.0
-4. For Android: Ensure NDK version >= 27.0.12077973 on your project's android/app/build.gradle.kts file with android { ndkVersion = "27.0.12077973" }
+4. For Android: Ensure the NDK version >= 27.0.12077973 on your project's android/app/build.gradle.kts file with android { ndkVersion = "27.0.12077973" }
 
 ## Installation
 
