@@ -30,7 +30,7 @@ Available features include:
 
 ## Installation
 
-1. Add the dependency to your project. In your `pubspec.yaml` file add: `flutterwave_standard: 1.1.0`
+1. Add the dependency to your project. In your `pubspec.yaml` file add: `flutterwave_standard: 1.1.1`
 2. Run `flutter pub get`
 
 ## Usage
@@ -121,7 +121,7 @@ Copyright (c) Flutterwave Inc.
 
 <a id="references"></a>
 
-## Flutterwave API References
+## Other Resources
 
 - [Flutterwave API Doc](https://developer.flutterwave.com)
 - [Flutterwave Inline Payment Doc](https://developer.flutterwave.com/docs/inline)
