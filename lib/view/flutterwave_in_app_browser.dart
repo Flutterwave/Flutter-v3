@@ -3,10 +3,9 @@ import 'dart:convert';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutterwave_standard/core/TransactionCallBack.dart';
 
-import '../models/responses/charge_response.dart';
+import 'package:flutterwave_standard/models/responses/charge_response.dart';
 
 class FlutterwaveInAppBrowser extends InAppBrowser {
-
   final TransactionCallBack callBack;
 
   FlutterwaveInAppBrowser({required this.callBack});
@@ -63,8 +62,8 @@ class FlutterwaveInAppBrowser extends InAppBrowser {
         status: status,
         transactionId: "$id",
         txRef: txRef,
-        success: status?.contains("success") == true
-    );
+        success: status?.toString().toLowerCase() == "success" ||
+            status?.toString().toLowerCase() == "completed");
     _closeTransactionScreen(chargeResponse);
     // callBack.onTransactionComplete(chargeResponse);
     // close();
@@ -78,8 +77,8 @@ class FlutterwaveInAppBrowser extends InAppBrowser {
         status: status,
         transactionId: id,
         txRef: txRef,
-        success: status?.contains("success") == true
-    );
+        success: status?.toLowerCase() == "success" ||
+            status?.toLowerCase() == "completed");
     _closeTransactionScreen(chargeResponse);
     // callBack.onTransactionComplete(chargeResponse);
     // close();

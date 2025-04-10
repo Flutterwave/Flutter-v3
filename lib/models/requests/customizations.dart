@@ -10,9 +10,9 @@ class Customization {
   /// Converts instance of Customization to json
   Map<String, dynamic> toJson() {
     final customization = {
-      "title": this.title != null ? this.title : "",
-      "description": this.description != null ? this.description : "",
-      "logo": this.logo != null ? this.logo : ""
+      "title": title ?? "",
+      "description": description ?? "",
+      "logo": logo ?? "",
     };
     return Utils.removeKeysWithEmptyValues(customization);
   }

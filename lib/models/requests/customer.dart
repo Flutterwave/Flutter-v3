@@ -1,4 +1,4 @@
-import '../../utils.dart';
+import 'package:flutterwave_standard/utils.dart';
 
 class Customer {
   String email;
@@ -9,10 +9,10 @@ class Customer {
 
   /// Converts instance of Customer to json
   Map<String, dynamic> toJson() {
-    final customer =  {
-      "email": this.email,
-      "phonenumber": this.phoneNumber ?? "",
-      "name": this.name ?? ""
+    final customer = {
+      "email": email,
+      "phonenumber": phoneNumber ?? "",
+      "name": name ?? ""
     };
     return Utils.removeKeysWithEmptyValues(customer);
   }
