@@ -4,6 +4,10 @@ on:
   release:
     types: [created]
 
+permissions:
+  id-token: write
+  contents: read
+  
 jobs:
   check-readme-and-changelog:
     runs-on: ubuntu-latest
