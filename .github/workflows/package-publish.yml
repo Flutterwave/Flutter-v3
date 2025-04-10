@@ -50,7 +50,7 @@ jobs:
         run: flutter pub get
 
       - name: Publish to Pub.dev
-        run: pub publish --dry-run
+        run: flutter pub publish --dry-run
 
       - name: push build status to Slack
         uses: 8398a7/action-slack@v3
