@@ -162,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
       );
 
       final Flutterwave flutterwave = Flutterwave(
-        publicKey: "YOUR_SECRET_KEY", // Input your public key
+        publicKey: "YOUR_PUBLIC_KEY", // Input your public key
         currency: selectedCurrency,
         amount: amountController.text.toString().trim(),
         customer: customer,

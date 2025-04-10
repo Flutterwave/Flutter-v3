@@ -7,8 +7,9 @@
 - Enhanced success status check logic to handle different status values ("success" and "completed").
 - Improved error handling and state management.
 - Removed deprecated components: `flutterwave_style.dart` and `standard_webview.dart`.
-- Updated SDK requirements to `>=2.17.0`.
-- Upgraded dependencies to latest versions.
+- Removed `flutterwave_style_test.dart`.
+- Updated the SDK requirements to `>=2.17.0`.
+- Upgraded dependencies to the latest versions.
 - Removed unused dependencies: webview_flutter, modal_bottom_sheet and uuid.
 
 ## [1.0.7] - February, 2023
