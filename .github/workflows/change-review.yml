@@ -26,18 +26,6 @@ jobs:
       - name: run coverage tests
         run: flutter test --coverage
 
-      - name: install lcov for coverage reporting
-        run: sudo apt-get install -y lcov
-
-      - name: remove irrelevant files from coverage report
-        run: lcov --remove coverage/lcov.info 'lib/view/*.dart' 'lib/*/*.freezed.dart' 'lib/*/*.g.dart' 'lib/*/*.part.dart' 'lib/generated/*.dart' 'lib/generated/*/*.dart' -o coverage/lcov.info
-
-      - name: upload coverage report to Codecov
-        uses: codecov/codecov-action@v2
-        with:
-          file: coverage/lcov.info
-          token: ${{ secrets.CODECOV_TOKEN }}
-
       - name: push build status to slack
         uses: 8398a7/action-slack@v3
         with:
