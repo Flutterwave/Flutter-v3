@@ -33,7 +33,6 @@ class FlutterwaveInAppBrowser extends InAppBrowser {
   _checkHasCompletedProcessing(final Uri uri) {
     final status = uri.queryParameters["status"];
     final txRef = uri.queryParameters["tx_ref"];
-    final id = uri.queryParameters["transaction_id"];
     if (status != null && txRef != null) {
       _finish(uri);
     }
