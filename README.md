@@ -10,7 +10,7 @@ Available features include:
 
 - Collections: Card, Account, Mobile money, Bank Transfers, USSD.
 - Recurring payments: Tokenization and Subscriptions.
-- Split payments
+- Split payments.
 
 ## Table of Contents
 
@@ -26,7 +26,7 @@ Available features include:
 1. Flutterwave for business [API Keys](https://developer.flutterwave.com/docs/integration-guides/authentication)
 2. Supported Flutter version >= 1.17.0
 3. Dart SDK >= 2.17.0
-4. For Android: Ensure NDK version >= 27.0.12077973 on your project's android/app/build.gradle.kts file with android { ndkVersion = "27.0.12077973" }
+4. For Android: Ensure the NDK version >= 27.0.12077973 on your project's android/app/build.gradle.kts file with android { ndkVersion = "27.0.12077973" }
 
 ## Installation
 
@@ -92,7 +92,7 @@ Call the verify transaction [endpoint](https://developer.flutterwave.com/docs/tr
 #### Note
 
 - `ChargeResponse` can be null, depending on if the user cancels the transaction by pressing back.
-- You need to confirm the transaction is successful. Ensure that the txRef, amount, and status are correct and successful. Be sure to [verify the transaction details](https://developer.flutterwave.com/docs/transaction-verification) before providing value.
+- You need to confirm the transaction status is successful. Ensure that the txRef, amount, and status are correct and successful. Be sure to [verify the transaction details](https://developer.flutterwave.com/docs/transaction-verification) before providing value.
 - Some payment methods are not instant, such a `Pay with Bank Transfers, Pay with Bank`, and so you would need to rely on [webhooks](https://developer.flutterwave.com/docs/webhooks) or call the transaction verification service using the [`transactionId`](https://developer.flutterwave.com/reference/verify-transaction), or transaction reference you created(`txRef`)
 - For such long payments like the above, closing the payment page returns a `cancelled` status, so your final source of truth has to be calling the transaction verification service.
 
