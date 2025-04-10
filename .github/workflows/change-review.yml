@@ -1,48 +1,51 @@
 
-name: Code Quality Check
+name: Review changes on Dev (Commits/PRs)
 
 on:
   push:
-    branched: ['develop']
+    branches: ['dev']
   pull_request:
     types:
       - opened
 
 jobs:
   version:
-    name: Code Checks
+    name: code-check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: set up flutter environment
+      - name: checkout code
+        uses: actions/checkout@v2
+        
+      - name: setup flutter environment
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.0.0'
 
-      - name: Install dependencies
+      - name: install flutter dependencies
         run: flutter pub get
 
-      - name: Run unit tests
+      - name: run coverage tests
         run: flutter test --coverage
 
-      - name: Install lcov
+      - name: install lcov for coverage reporting
         run: sudo apt-get install -y lcov
 
-      - name: Remove irrelevant files from coverage
+      - name: remove irrelevant files from coverage report
         run: lcov --remove coverage/lcov.info 'lib/view/*.dart' 'lib/*/*.freezed.dart' 'lib/*/*.g.dart' 'lib/*/*.part.dart' 'lib/generated/*.dart' 'lib/generated/*/*.dart' -o coverage/lcov.info
 
-      - name: Upload coverage report to Codecov
+      - name: upload coverage report to Codecov
         uses: codecov/codecov-action@v2
         with:
           file: coverage/lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: push build status to Slack
+      - name: push build status to slack
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
         if: always()
 

@@ -1,36 +1,59 @@
-
-name: Publish to Pub.dev
+name: Publish changes to Pub.dev
 
 on:
-  push:
-    branched: ['master']
+  release:
+    types: [created]
 
 jobs:
-  version:
-    name: Code Checks
+  check-readme-and-changelog:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: set up flutter environment
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: check for changes in readme and changelog files
+        run: |
+          if ! git diff --quiet HEAD~ HEAD -- README.md CHANGELOG.md; then
+            echo "README and/or CHANGELOG have been modified. Proceeding with deployment."
+          else
+            echo "README and/or CHANGELOG have not been modified. Terminating deployment."
+            exit 1
+          fi
+
+      - name: push build status to slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        if: always()
+    
+  publish:
+    needs: check-readme-and-changelog
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: setup flutter environment
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.0.0'
 
-      - name: Install dependencies
+      - name: install flutter dependencies
         run: flutter pub get
 
-      - name: Run unit tests
-        run: flutter test --coverage
-
-#      - name: Publish to Pub.dev
-#        run: pub publish --dry-run
+      - name: Publish to Pub.dev
+        run: pub publish --dry-run
 
       - name: push build status to Slack
-          uses: 8398a7/action-slack@v3
-          with:
-            status: ${{ job.status }}
-            fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest
-          env:
-            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          if: always()
-
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        if: always()

@@ -23,19 +23,21 @@ class StandardRequest {
   List<SubAccount>? subAccounts;
   Map<dynamic, dynamic>? meta;
 
-  StandardRequest({required this.txRef,
-    required this.amount,
-    required this.customer,
-    required this.paymentOptions,
-    required this.customization,
-    required this.isTestMode,
-    required this.publicKey,
-    required this.redirectUrl,
-    this.currency,
-    this.paymentPlanId,
-    this.subAccounts,
-    this.meta});
+  StandardRequest(
+      {required this.txRef,
+      required this.amount,
+      required this.customer,
+      required this.paymentOptions,
+      required this.customization,
+      required this.isTestMode,
+      required this.publicKey,
+      required this.redirectUrl,
+      this.currency,
+      this.paymentPlanId,
+      this.subAccounts,
+      this.meta});
 
+  @override
   String toString() => jsonEncode(this._toJson());
 
   /// Converts this instance to json
@@ -49,7 +51,8 @@ class StandardRequest {
       "payment_plan": this.paymentPlanId,
       "redirect_url": this.redirectUrl,
       "customer": this.customer.toJson(),
-      "subaccounts": this.subAccounts?.map((e) => e.toJson()).toList(),
+      "subaccounts":
+          this.subAccounts?.map((e) => e.toJson()).toList(),
       "meta": this.meta,
       "customizations": customization.toJson()
     };
@@ -58,19 +61,20 @@ class StandardRequest {
 
   /// Executes network call to initiate transactions
   Future<StandardResponse> execute(Client client) async {
-    final url = Utils.getBaseUrl(this.isTestMode) + Utils.STANDARD_PAYMENT;
+    final url = Utils.getBaseUrl(isTestMode) + Utils.STANDARD_PAYMENT;
     final uri = Uri.parse(url);
     try {
       final response = await client.post(uri,
           headers: {
-            HttpHeaders.authorizationHeader: this.publicKey,
+            HttpHeaders.authorizationHeader: publicKey,
             HttpHeaders.contentTypeHeader: 'application/json'
           },
-          body: json.encode(this._toJson()));
+          body: json.encode(_toJson()));
 
       final responseBody = json.decode(response.body);
       if (responseBody["status"] == "error") {
-        throw TransactionError(TransactionError.formatError(responseBody));
+        throw TransactionError(
+            TransactionError.formatError(responseBody));
       }
       return StandardResponse.fromJson(responseBody);
     } catch (error) {
