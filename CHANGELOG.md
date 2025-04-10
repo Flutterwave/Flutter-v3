@@ -11,6 +11,7 @@
 - Updated the SDK requirements to `>=2.17.0`.
 - Upgraded dependencies to the latest versions.
 - Removed unused dependencies: webview_flutter, modal_bottom_sheet and uuid.
+- Update deployment workflow.
 
 ## [1.0.7] - February, 2023
 
