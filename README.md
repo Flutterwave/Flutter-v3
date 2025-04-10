@@ -10,7 +10,7 @@ Available features include:
 
 - Collections: Card, Account, Mobile money, Bank Transfers, USSD.
 - Recurring payments: Tokenization and Subscriptions.
-- Split payments
+- Split payments.
 
 ## Table of Contents
 
