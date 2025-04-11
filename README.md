@@ -26,12 +26,12 @@ Available features include:
 1. Flutterwave for business [API Keys](https://developer.flutterwave.com/docs/integration-guides/authentication)
 2. Supported Flutter version >= 1.17.0
 3. Dart SDK >= 2.17.0
-4. For Android development, ensure the NDK version >= `27.0.12077973` on your project's `android/app/build.gradle.kts` file with android `{ ndkVersion = "27.0.12077973" }`
+4. For Android development, ensure the NDK version >= `27.0.12077973` on your project's `android/app/build.gradle.kts` file with android `{ ndkVersion = "27.0.12077973" }`.
 
 ## Installation
 
-1. Add the dependency to your project. In your `pubspec.yaml` file add: `flutterwave_standard: 1.1.1`
-2. Run `flutter pub get`
+1. Add the dependency to your project. In your `pubspec.yaml` file add: `flutterwave_standard: 1.1.0`
+2. Run `flutter pub get`.
 
 ## Usage
 
@@ -90,30 +90,28 @@ Calling the `.charge()` method returns a `Future` of `ChargeResponse` which we a
 Call the verify transaction [endpoint](https://developer.flutterwave.com/docs/transaction-verification) with the `transactionID` returned in `response.transactionId` or the `txRef` you provided to verify transaction before offering value to customer
 
 #### Note
-
 - `ChargeResponse` can be null, depending on if the user cancels the transaction by pressing back.
 - You need to confirm the transaction status is successful. Ensure that the txRef, amount, and status are correct and successful. Be sure to [verify the transaction details](https://developer.flutterwave.com/docs/transaction-verification) before providing value.
 - Some payment methods are not instant, such a `Pay with Bank Transfers, Pay with Bank`, and so you would need to rely on [webhooks](https://developer.flutterwave.com/docs/webhooks) or call the transaction verification service using the [`transactionId`](https://developer.flutterwave.com/reference/verify-transaction), or transaction reference you created(`txRef`)
 - For such long payments like the above, closing the payment page returns a `cancelled` status, so your final source of truth has to be calling the transaction verification service.
 
-## Support
 
+## Support
 For additional assistance using this library, contact the developer experience (DX) team via [email](mailto:developers@flutterwavego.com) or on [slack](https://bit.ly/34Vkzcg).
 
 You can also follow us [@FlutterwaveEng](https://twitter.com/FlutterwaveEng) and let us know what you think 😊.
 
-## Contribution guidelines
 
+## Contribution guidelines
 Read more about our community contribution guidelines [here](CONTRIBUTING.md).
 
-## License
 
+## License
 By contributing to the Flutter library, you agree that your contributions will be licensed under its [MIT license](/LICENSE).
 
 Copyright (c) Flutterwave Inc.
 
 ## Built Using
-
 - [flutter](https://flutter.dev/)
 - [http](https://pub.dev/packages/http)
 - [flutter_inappwebview](https://pub.dev/packages/flutter_inappwebview)
@@ -122,7 +120,6 @@ Copyright (c) Flutterwave Inc.
 <a id="references"></a>
 
 ## Other Resources
-
 - [Flutterwave API Doc](https://developer.flutterwave.com)
 - [Flutterwave Inline Payment Doc](https://developer.flutterwave.com/docs/inline)
 - [Flutterwave Dashboard](https://dashboard.flutterwave.com/login)
