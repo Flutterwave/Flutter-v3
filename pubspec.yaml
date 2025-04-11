@@ -1,8 +1,6 @@
 name: flutterwave_standard
 description: Flutterwave's official library that wraps the standard implementation.
-version: 1.1.1
-authors:
-  - Flutterwave Developers <developers@flutterwavego.com>
+version: 1.1.0
 homepage: https://github.com/Flutterwave/flutter_standard
 environment:
   sdk: ">=2.17.0 <4.0.0"
