@@ -4,7 +4,7 @@
 
 # Flutterwave Flutter SDK (Standard)
 
-The Flutter library helps you create seamless payment experiences in your dart mobile app. By connecting to our modal, you can start collecting payment in no time.
+The Flutter library helps you create seamless payment experiences in your Dart mobile app. By connecting to our modal, you can start collecting payments in no time.
 
 Available features include:
 
@@ -23,14 +23,14 @@ Available features include:
 
 ## Requirements
 
-1. Flutterwave for business [API Keys](https://developer.flutterwave.com/docs/integration-guides/authentication)
+1. Flutterwave for business [API Keys](https://developer.flutterwave.com/v3.0.0/docs/authentication#get-your-api-keys)
 2. Supported Flutter version >= 1.17.0
 3. Dart SDK >= 2.17.0
 4. For Android development, ensure the NDK version >= `27.0.12077973` on your project's `android/app/build.gradle.kts` file with android `{ ndkVersion = "27.0.12077973" }`.
 
 ## Installation
 
-1. Add the dependency to your project. In your `pubspec.yaml` file add: `flutterwave_standard: 1.1.0`
+1. Add the dependency to your project. In your `pubspec.yaml` file, add: `flutterwave_standard: 1.1.0`
 2. Run `flutter pub get`.
 
 ## Usage
@@ -50,7 +50,7 @@ To create an instance, you should call the Flutterwave constructor. This constru
 - `redirectUrl`
 - `Customization`
 
-It returns an instance of Flutterwave which we then call the async method `.charge()` on.
+It returns an instance of Flutterwave, which we then call the async method `.charge()` on.
 
 \_
 
@@ -83,16 +83,16 @@ It returns an instance of Flutterwave which we then call the async method `.char
 
 ### Handling the response
 
-Calling the `.charge()` method returns a `Future` of `ChargeResponse` which we await for the actual response as seen above.
+Calling the `.charge()` method returns a `Future` of `ChargeResponse`, which we await for the actual response as seen above.
 
     final ChargeResponse response = await flutterwave.charge(context);
 
-Call the verify transaction [endpoint](https://developer.flutterwave.com/docs/transaction-verification) with the `transactionID` returned in `response.transactionId` or the `txRef` you provided to verify transaction before offering value to customer
+Call the verify transaction [endpoint](https://developer.flutterwave.com/v3.0.0/docs/transaction-verification) with the `transactionID` returned in `response.transactionId` or the `txRef` you provided to verify the transaction before offering value to the  customer
 
 #### Note
-- `ChargeResponse` can be null, depending on if the user cancels the transaction by pressing back.
-- You need to confirm the transaction status is successful. Ensure that the txRef, amount, and status are correct and successful. Be sure to [verify the transaction details](https://developer.flutterwave.com/docs/transaction-verification) before providing value.
-- Some payment methods are not instant, such a `Pay with Bank Transfers, Pay with Bank`, and so you would need to rely on [webhooks](https://developer.flutterwave.com/docs/webhooks) or call the transaction verification service using the [`transactionId`](https://developer.flutterwave.com/reference/verify-transaction), or transaction reference you created(`txRef`)
+- `ChargeResponse` can be null, depending on whether the user cancels the transaction by pressing back.
+- You need to confirm that the transaction status is successful. Ensure that the txRef, amount, and status are correct and successful. Be sure to [verify the transaction details](https://developer.flutterwave.com/v3.0.0/docs/transaction-verification) before providing value.
+- Some payment methods are not instant, such as `Pay with Bank Transfers, Pay with Bank`, and so you would need to rely on [webhooks](https://developer.flutterwave.com/v3.0.0/docs/webhooks) or call the transaction verification service using the [`transactionId`](https://developer.flutterwave.com/v3.0.0/reference/verify-transaction-with-tx_ref), or transaction reference you created(`txRef`)
 - For such long payments like the above, closing the payment page returns a `cancelled` status, so your final source of truth has to be calling the transaction verification service.
 
 
@@ -121,5 +121,5 @@ Copyright (c) Flutterwave Inc.
 
 ## Other Resources
 - [Flutterwave API Doc](https://developer.flutterwave.com)
-- [Flutterwave Inline Payment Doc](https://developer.flutterwave.com/docs/inline)
-- [Flutterwave Dashboard](https://dashboard.flutterwave.com/login)
+- [Flutterwave Inline Payment Doc](https://developer.flutterwave.com/v3.0.0/docs/inline)
+- [Flutterwave Dashboard](https://app.flutterwave.com/login)
